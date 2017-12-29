@@ -13,11 +13,11 @@ class MainActivity : AppCompatActivity() {
             R.id.navigation_home -> {
                 transaction.replace(R.id.container, HomeFragment.newInstance())
             }
-            R.id.navigation_dashboard -> {
-                transaction.replace(R.id.container, RecordFragment.newInstance())
-            }
-            R.id.navigation_notifications -> {
+            R.id.navigation_menu -> {
                 transaction.replace(R.id.container, MenuFragment.newInstance())
+            }
+            R.id.navigation_record -> {
+                transaction.replace(R.id.container, RecordFragment.newInstance())
             }
         }
         transaction.commit()
