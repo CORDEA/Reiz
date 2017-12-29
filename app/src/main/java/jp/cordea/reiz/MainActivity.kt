@@ -29,5 +29,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
+
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.container, HomeFragment.newInstance())
+                .commit()
     }
 }
