@@ -11,19 +11,17 @@ class MainActivity : AppCompatActivity() {
         val transaction = supportFragmentManager.beginTransaction()
         when (item.itemId) {
             R.id.navigation_home -> {
-                message.setText(R.string.title_home)
-                return@OnNavigationItemSelectedListener true
+                transaction.replace(R.id.container, HomeFragment.newInstance())
             }
             R.id.navigation_dashboard -> {
-                message.setText(R.string.title_dashboard)
-                return@OnNavigationItemSelectedListener true
+                transaction.replace(R.id.container, RecordFragment.newInstance())
             }
             R.id.navigation_notifications -> {
-                message.setText(R.string.title_notifications)
-                return@OnNavigationItemSelectedListener true
+                transaction.replace(R.id.container, MenuFragment.newInstance())
             }
         }
-        false
+        transaction.commit()
+        true
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
