@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import jp.cordea.reiz.databinding.FragmentMenuBinding
 
 class MenuFragment : Fragment() {
 
@@ -16,9 +17,10 @@ class MenuFragment : Fragment() {
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.fragment_menu, container, false)
-    }
+    ): View =
+            FragmentMenuBinding.inflate(inflater, container, false).also {
+                it.listView.adapter = MenuListAdapter(context)
+            }.root
 
     companion object {
 
