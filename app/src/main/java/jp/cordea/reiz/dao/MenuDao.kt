@@ -12,6 +12,9 @@ interface MenuDao {
     @Query("SELECT * FROM menu")
     fun getMenus(): List<Menu>
 
+    @Query("SELECT * FROM menu WHERE id = :id")
+    fun getMenuById(id: Long): Menu
+
     @Insert
     fun insertMenu(menu: Menu)
 
