@@ -4,11 +4,8 @@ import android.content.Context
 import android.databinding.BaseObservable
 import android.databinding.Bindable
 import io.reactivex.Observable
-import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
-import java.util.*
 
 class HomeViewModel(override val context: Context) : IViewModel, BaseObservable() {
 
@@ -24,12 +21,7 @@ class HomeViewModel(override val context: Context) : IViewModel, BaseObservable(
     private var disposable: Disposable? = null
 
     init {
-        disposable = Single
-                .fromCallable {
-                    Optional.ofNullable(
-                            ReizApplication.Database.recordDao().getCurrentRecord())
-                }
-                .subscribeOn(Schedulers.io())
+        disposable = RecordRepository.getCurrentRecord()
                 .doOnSuccess {
                     isInProgress = it.isPresent
                 }
