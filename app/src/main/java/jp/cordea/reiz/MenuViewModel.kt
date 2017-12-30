@@ -10,6 +10,7 @@ class MenuViewModel(override val context: Context) : IViewModel {
     val adapter = MenuListAdapter(context)
 
     val onClick = View.OnClickListener {
+        context.startActivity(AddMenuActivity.createIntent(context))
     }
 
     init {

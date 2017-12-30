@@ -1,5 +1,7 @@
 package jp.cordea.reiz
 
+import android.content.Context
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -28,5 +30,11 @@ class AddMenuActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         presenter.onPause()
+    }
+
+    companion object {
+
+        fun createIntent(context: Context): Intent =
+                Intent(context, AddMenuActivity::class.java)
     }
 }
