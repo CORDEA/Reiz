@@ -8,7 +8,9 @@ class AddMenuPresenter(
         override val binding: ActivityAddMenuBinding
 ) : IPresenter<ActivityAddMenuBinding> {
 
-    private val viewModel = AddMenuViewModel(activity)
+    private val viewModel = AddMenuViewModel(activity) {
+        activity.finish()
+    }
 
     override fun onCreate() {
         binding.vm = viewModel
