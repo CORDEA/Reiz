@@ -9,8 +9,10 @@ import jp.cordea.reiz.databinding.FragmentMenuBinding
 
 class MenuFragment : Fragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    private lateinit var binding: FragmentMenuBinding
+
+    private val presenter by lazy {
+        MenuPresenter(activity, binding)
     }
 
     override fun onCreateView(
@@ -20,7 +22,23 @@ class MenuFragment : Fragment() {
     ): View =
             FragmentMenuBinding.inflate(inflater, container, false).also {
                 it.listView.adapter = MenuListAdapter(context)
+                binding = it
             }.root
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        presenter.onCreate()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        presenter.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.onResume()
+    }
 
     companion object {
 
