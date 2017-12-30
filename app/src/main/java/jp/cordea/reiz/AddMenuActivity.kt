@@ -17,6 +17,7 @@ class AddMenuActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_menu)
         setSupportActionBar(binding.toolbar)
+        presenter.onCreate()
     }
 
     override fun onResume() {
