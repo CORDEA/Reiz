@@ -1,8 +1,11 @@
 package jp.cordea.reiz
 
-class MenuListItemViewModel {
+import jp.cordea.reiz.model.Menu
 
-    val title: String = "title"
-    val priceText: String = "0"
+class MenuListItemViewModel(
+        menu: Menu
+) {
 
+    val title: String = menu.name
+    val priceText: String = menu.price.toString()
 }

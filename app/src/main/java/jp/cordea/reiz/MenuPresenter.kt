@@ -11,7 +11,7 @@ class MenuPresenter(
     private val viewModel = MenuViewModel(activity)
 
     override fun onCreate() {
-//        binding.vm = viewModel
+        binding.vm = viewModel
     }
 
     override fun onResume() {
