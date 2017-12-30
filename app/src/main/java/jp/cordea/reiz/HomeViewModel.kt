@@ -1,14 +1,23 @@
 package jp.cordea.reiz
 
 import android.content.Context
+import android.databinding.BaseObservable
+import android.databinding.Bindable
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.disposables.Disposable
 import java.util.*
 
-class HomeViewModel(override val context: Context) : IViewModel {
+class HomeViewModel(override val context: Context) : IViewModel, BaseObservable() {
 
     val adapter = HomeListAdapter(context)
+
+    @Bindable
+    var isInProgress = false
+        private set(value) {
+            field = value
+            notifyPropertyChanged(BR.isInProgress)
+        }
 
     private var disposable: Disposable? = null
 
@@ -17,6 +26,9 @@ class HomeViewModel(override val context: Context) : IViewModel {
                 .fromCallable {
                     Optional.ofNullable(
                             ReizApplication.Database.recordDao().getCurrentRecord())
+                }
+                .doOnSuccess {
+                    isInProgress = it.isPresent
                 }
                 .filter { it.isPresent }
                 .map { it.get() }
