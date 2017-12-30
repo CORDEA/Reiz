@@ -32,7 +32,9 @@ class AddMenuViewModel(
                 .filter { it.second.isPresent }
                 .map { it.first to it.second.get() }
                 .map { Menu(it.first, it.second) }
-                .doOnSuccess { MenuRepository.addMenu(it) }
+                .flatMapCompletable {
+                    MenuRepository.addMenu(it)
+                }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     onRequestFinish()
