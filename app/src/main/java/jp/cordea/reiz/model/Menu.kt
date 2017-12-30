@@ -1,9 +1,13 @@
 package jp.cordea.reiz.model
 
+import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 
-class Menu(
-        @PrimaryKey(autoGenerate = true) val id: String,
-        name: String,
-        price: Int
-)
+@Entity
+data class Menu(
+        val name: String,
+        val price: Int
+) {
+    @PrimaryKey(autoGenerate = true)
+    val id: Long = 0
+}
