@@ -7,12 +7,12 @@ import java.util.*
 
 @Entity
 data class Record(
+        @ColumnInfo(name = "menus")
+        val menus: List<Menu>,
         @ColumnInfo(name = "started_at")
         val startedAt: Date,
         @ColumnInfo(name = "ended_at")
-        val endedAt: Date,
-        @ColumnInfo(name = "menus")
-        val menus: List<Menu>
+        val endedAt: Date? = null
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
