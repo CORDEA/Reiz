@@ -21,7 +21,9 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:text="@{vm.title}"
+            android:textColor="@color/colorPrimaryText"
             android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/price_text_view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -34,6 +36,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
             android:text="@{vm.priceText}"
+            android:textColor="@color/colorSecondaryText"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
