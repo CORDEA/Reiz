@@ -1,14 +1,14 @@
 package jp.cordea.reiz
 
-import android.content.Context
+import android.app.Activity
 import jp.cordea.reiz.databinding.ActivityAddMenuBinding
 
 class AddMenuPresenter(
-        override val context: Context,
+        override val activity: Activity,
         override val binding: ActivityAddMenuBinding
 ) : IPresenter<ActivityAddMenuBinding> {
 
-    private val viewModel = AddMenuViewModel(context)
+    private val viewModel = AddMenuViewModel(activity)
 
     override fun onCreate() {
         binding.vm = viewModel

@@ -1,10 +1,10 @@
 package jp.cordea.reiz
 
-import android.content.Context
+import android.app.Activity
 
 interface IPresenter<out T> {
 
-    val context: Context
+    val activity: Activity
 
     val binding: T
 
