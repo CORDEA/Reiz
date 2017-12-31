@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="jp.cordea.reiz.AddSessionListItemViewModel" />
+            type="jp.cordea.reiz.AddSessionMenuListItemViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout

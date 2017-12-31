@@ -6,9 +6,9 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 
-class AddSessionViewModel(override val context: Context) : IViewModel {
+class AddSessionMenuViewModel(override val context: Context) : IViewModel {
 
-    val adapter = AddSessionListAdapter(context)
+    val adapter = AddSessionMenuListAdapter(context)
 
     val onItemClickListener = AdapterView.OnItemClickListener { _, _, i, _ ->
         adapter.getItem(i).incCount()
@@ -20,7 +20,7 @@ class AddSessionViewModel(override val context: Context) : IViewModel {
         disposable = MenuRepository.getMenus()
                 .toObservable()
                 .flatMap { Observable.fromIterable(it) }
-                .map { AddSessionListItemViewModel(it) }
+                .map { AddSessionMenuListItemViewModel(it) }
                 .toList()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({

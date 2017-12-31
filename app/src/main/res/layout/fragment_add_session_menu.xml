@@ -7,13 +7,13 @@
 
         <variable
             name="vm"
-            type="jp.cordea.reiz.AddSessionViewModel" />
+            type="jp.cordea.reiz.AddSessionMenuViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="jp.cordea.reiz.AddSessionFragment"
+        tools:context="jp.cordea.reiz.AddSessionMenuFragment"
         tools:showIn="@layout/activity_add_session">
 
         <ListView

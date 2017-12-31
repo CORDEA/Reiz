@@ -14,7 +14,7 @@ class AddSessionActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         supportFragmentManager.beginTransaction()
-                .replace(R.id.container, AddSessionFragment.newInstance())
+                .replace(R.id.container, AddSessionMenuFragment.newInstance())
                 .commit()
 
         fab.setOnClickListener { view ->

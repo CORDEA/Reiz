@@ -5,14 +5,14 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import jp.cordea.reiz.databinding.FragmentAddSessionBinding
+import jp.cordea.reiz.databinding.FragmentAddSessionMenuBinding
 
-class AddSessionFragment : Fragment() {
+class AddSessionMenuFragment : Fragment() {
 
-    private lateinit var binding: FragmentAddSessionBinding
+    private lateinit var binding: FragmentAddSessionMenuBinding
 
     private val presenter by lazy {
-        AddSessionPresenter(activity, binding)
+        AddSessionMenuPresenter(activity, binding)
     }
 
     override fun onCreateView(
@@ -20,7 +20,7 @@ class AddSessionFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View =
-            FragmentAddSessionBinding.inflate(inflater, container, false).also {
+            FragmentAddSessionMenuBinding.inflate(inflater, container, false).also {
                 binding = it
             }.root
 
@@ -41,7 +41,7 @@ class AddSessionFragment : Fragment() {
 
     companion object {
 
-        fun newInstance(): AddSessionFragment =
-                AddSessionFragment()
+        fun newInstance(): AddSessionMenuFragment =
+                AddSessionMenuFragment()
     }
 }

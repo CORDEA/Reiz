@@ -4,7 +4,7 @@ import android.databinding.BaseObservable
 import android.databinding.Bindable
 import jp.cordea.reiz.model.Menu
 
-class AddSessionListItemViewModel(menu: Menu) : BaseObservable() {
+class AddSessionMenuListItemViewModel(menu: Menu) : BaseObservable() {
 
     val name = menu.name
 
