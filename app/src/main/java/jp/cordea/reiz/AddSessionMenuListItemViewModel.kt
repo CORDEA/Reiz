@@ -8,6 +8,8 @@ class AddSessionMenuListItemViewModel(menu: Menu) : BaseObservable() {
 
     val name = menu.name
 
+    val price = menu.price
+
     val priceText = menu.price.toString()
 
     @Bindable

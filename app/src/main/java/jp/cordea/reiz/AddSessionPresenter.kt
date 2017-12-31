@@ -8,12 +8,21 @@ class AddSessionPresenter(
         override val binding: ActivityAddSessionBinding
 ) : IPresenter<ActivityAddSessionBinding> {
 
+    var listener: AddSessionViewModel.OnAddClickListener? = null
+        set(value) {
+            viewModel.listener = value
+        }
+
+    private val viewModel = AddSessionViewModel(activity)
+
     override fun onCreate() {
+        binding.vm = viewModel
     }
 
     override fun onResume() {
     }
 
     override fun onPause() {
+        viewModel.dispose()
     }
 }

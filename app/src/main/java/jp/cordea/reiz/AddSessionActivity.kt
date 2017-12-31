@@ -1,26 +1,38 @@
 package jp.cordea.reiz
 
+import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
-
-import kotlinx.android.synthetic.main.activity_add_session.*
+import jp.cordea.reiz.databinding.ActivityAddSessionBinding
 
 class AddSessionActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityAddSessionBinding
+
+    private val presenter by lazy {
+        AddSessionPresenter(this, binding)
+    }
+
+    var listener: AddSessionViewModel.OnAddClickListener? = null
+        set(value) {
+            presenter.listener = value
+        }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_session)
-        setSupportActionBar(toolbar)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_add_session)
+        setSupportActionBar(binding.toolbar)
 
         supportFragmentManager.beginTransaction()
                 .replace(R.id.container, AddSessionMenuFragment.newInstance())
                 .commit()
-
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        }
     }
 
+    override fun onResume() {
+        super.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+    }
 }

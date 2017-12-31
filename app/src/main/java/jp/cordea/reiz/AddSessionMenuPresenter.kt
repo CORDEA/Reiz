@@ -8,10 +8,13 @@ class AddSessionMenuPresenter(
         override val binding: FragmentAddSessionMenuBinding
 ) : IPresenter<FragmentAddSessionMenuBinding> {
 
-    private val viewModel = AddSessionMenuViewModel(activity)
+    private val viewModel = AddSessionMenuViewModel(activity) {
+        activity.finish()
+    }
 
     override fun onCreate() {
         binding.vm = viewModel
+        (activity as AddSessionActivity).listener = viewModel
     }
 
     override fun onResume() {

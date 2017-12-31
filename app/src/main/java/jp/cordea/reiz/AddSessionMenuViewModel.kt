@@ -5,8 +5,16 @@ import android.widget.AdapterView
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
+import jp.cordea.reiz.model.Menu
+import jp.cordea.reiz.model.Record
+import java.util.*
 
-class AddSessionMenuViewModel(override val context: Context) : IViewModel {
+class AddSessionMenuViewModel(
+        override val context: Context,
+        private val onRequestFinish: () -> Unit
+) :
+        IViewModel,
+        AddSessionViewModel.OnAddClickListener {
 
     val adapter = AddSessionMenuListAdapter(context)
 
@@ -14,22 +22,46 @@ class AddSessionMenuViewModel(override val context: Context) : IViewModel {
         adapter.getItem(i).incCount()
     }
 
-    private var disposable: Disposable? = null
+    private var menuDisposable: Disposable? = null
+
+    private var recordDisposable: Disposable? = null
 
     init {
-        disposable = MenuRepository.getMenus()
+        menuDisposable = MenuRepository.getMenus()
                 .toObservable()
                 .flatMap { Observable.fromIterable(it) }
                 .map { AddSessionMenuListItemViewModel(it) }
                 .toList()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    adapter.setItems(it)
+                    adapter.items = it
+                }, {
+                })
+    }
+
+    override fun onClick() {
+        recordDisposable = Observable
+                .fromIterable(adapter.items)
+                .flatMap { item ->
+                    Observable
+                            .range(0, item.count)
+                            .map { item }
+                }
+                .map { Menu(it.name, it.price) }
+                .toList()
+                .map { Record(it, Date()) }
+                .flatMapCompletable {
+                    RecordRepository.addRecord(it)
+                }
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    onRequestFinish()
                 }, {
                 })
     }
 
     override fun dispose() {
-        disposable?.dispose()
+        menuDisposable?.dispose()
+        recordDisposable?.dispose()
     }
 }
