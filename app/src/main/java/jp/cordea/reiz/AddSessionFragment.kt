@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import jp.cordea.reiz.databinding.FragmentAddSessionBinding
 
 class AddSessionFragment : Fragment() {
 
@@ -12,9 +13,8 @@ class AddSessionFragment : Fragment() {
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.fragment_add_session, container, false)
-    }
+    ): View =
+            FragmentAddSessionBinding.inflate(inflater, container, false).root
 
     companion object {
 
