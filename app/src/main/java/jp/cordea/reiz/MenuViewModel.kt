@@ -25,7 +25,7 @@ class MenuViewModel(override val context: Context) : IViewModel {
                 }
                 .toList()
                 .subscribe({
-                    adapter.setItems(it)
+                    adapter.items = it
                 }, {
                 })
     }

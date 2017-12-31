@@ -11,8 +11,14 @@ import android.widget.BaseAdapter
 open class BindingListAdapter<T>(
         private val context: Context,
         private val layout: Int,
-        private var items: List<T> = emptyList()
+        private var initItems: List<T> = emptyList()
 ) : BaseAdapter() {
+
+    var items: List<T> = initItems
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     override fun getItem(position: Int): T = items[position]
 
@@ -34,10 +40,5 @@ open class BindingListAdapter<T>(
         binding.setVariable(BR.vm, getItem(position))
 
         return view
-    }
-
-    fun setItems(items: List<T>) {
-        this.items = items
-        notifyDataSetChanged()
     }
 }
