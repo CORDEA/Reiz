@@ -7,10 +7,15 @@ import java.util.*
 class Converters {
 
     @TypeConverter
-    fun fromTimestamp(value: Long): Date = Date(value)
+    fun fromTimestamp(value: Long): Date? =
+            if (value > 0L) {
+                Date(value)
+            } else {
+                null
+            }
 
     @TypeConverter
-    fun toTimestamp(value: Date): Long = value.time
+    fun toTimestamp(value: Date?): Long = value?.time ?: -1L
 
     @TypeConverter
     fun fromMenuIds(value: String): List<Menu> =
