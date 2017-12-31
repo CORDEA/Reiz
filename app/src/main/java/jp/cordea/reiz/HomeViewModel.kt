@@ -19,11 +19,11 @@ class HomeViewModel(override val context: Context) : IViewModel, BaseObservable(
     val onClickPlay = View.OnClickListener {
     }
 
-    @Bindable
+    @get:Bindable
     var isInProgress = false
         private set(value) {
             field = value
-            notifyPropertyChanged(BR.isInProgress)
+            notifyPropertyChanged(BR.inProgress)
         }
 
     private var disposable: Disposable? = null
