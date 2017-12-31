@@ -3,6 +3,7 @@ package jp.cordea.reiz
 import android.content.Context
 import android.databinding.BaseObservable
 import android.databinding.Bindable
+import android.view.View
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -10,6 +11,13 @@ import io.reactivex.disposables.Disposable
 class HomeViewModel(override val context: Context) : IViewModel, BaseObservable() {
 
     val adapter = HomeListAdapter(context)
+
+    val onClickAdd = View.OnClickListener {
+        context.startActivity(AddSessionActivity.createIntent(context))
+    }
+
+    val onClickPlay = View.OnClickListener {
+    }
 
     @Bindable
     var isInProgress = false
