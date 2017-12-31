@@ -30,5 +30,6 @@ class AddSessionViewModel(override val context: Context) : IViewModel {
     }
 
     override fun dispose() {
+        disposable?.dispose()
     }
 }
