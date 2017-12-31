@@ -28,14 +28,18 @@ class AddSessionActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
                 .replace(R.id.container, AddSessionMenuFragment.newInstance())
                 .commit()
+
+        presenter.onCreate()
     }
 
     override fun onResume() {
         super.onResume()
+        presenter.onResume()
     }
 
     override fun onPause() {
         super.onPause()
+        presenter.onPause()
     }
 
     companion object {
