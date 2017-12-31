@@ -19,7 +19,8 @@
         <ListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:adapter="@{vm.adapter}" />
+            app:adapter="@{vm.adapter}"
+            app:setOnItemClickListener="@{vm.onItemClickListener}" />
 
     </android.support.constraint.ConstraintLayout>
 </layout>

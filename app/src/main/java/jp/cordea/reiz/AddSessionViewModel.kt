@@ -1,6 +1,7 @@
 package jp.cordea.reiz
 
 import android.content.Context
+import android.widget.AdapterView
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -8,6 +9,10 @@ import io.reactivex.disposables.Disposable
 class AddSessionViewModel(override val context: Context) : IViewModel {
 
     val adapter = AddSessionListAdapter(context)
+
+    val onItemClickListener = AdapterView.OnItemClickListener { _, _, i, _ ->
+        adapter.getItem(i).incCount()
+    }
 
     private var disposable: Disposable? = null
 
