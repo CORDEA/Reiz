@@ -22,8 +22,14 @@ class Converters {
             ReizApplication.Database.menuDao().let { dao ->
                 value.split(',')
                         .map { it.toLong() }
-                        .map { dao.getMenuById(it) }
-                        .toList()
+                        .toLongArray()
+                        .let {
+                            val ids = dao.getMenuByIds(it)
+                                    .associate { it.id to it }
+                            it.map {
+                                ids.getValue(it)
+                            }.toList()
+                        }
             }
 
     @TypeConverter

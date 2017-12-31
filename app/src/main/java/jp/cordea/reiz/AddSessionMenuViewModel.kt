@@ -5,16 +5,13 @@ import android.widget.AdapterView
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import jp.cordea.reiz.model.Menu
 import jp.cordea.reiz.model.Record
 import java.util.*
 
 class AddSessionMenuViewModel(
         override val context: Context,
         private val onRequestFinish: () -> Unit
-) :
-        IViewModel,
-        AddSessionViewModel.OnAddClickListener {
+) : IViewModel, AddSessionViewModel.OnAddClickListener {
 
     val adapter = AddSessionMenuListAdapter(context)
 
@@ -47,7 +44,7 @@ class AddSessionMenuViewModel(
                             .range(0, item.count)
                             .map { item }
                 }
-                .map { Menu(it.name, it.price) }
+                .map { it.menu }
                 .toList()
                 .map { Record(it, Date()) }
                 .flatMapCompletable {

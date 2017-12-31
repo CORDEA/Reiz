@@ -4,11 +4,9 @@ import android.databinding.BaseObservable
 import android.databinding.Bindable
 import jp.cordea.reiz.model.Menu
 
-class AddSessionMenuListItemViewModel(menu: Menu) : BaseObservable() {
+class AddSessionMenuListItemViewModel(val menu: Menu) : BaseObservable() {
 
     val name = menu.name
-
-    val price = menu.price
 
     val priceText = menu.price.toString()
 
