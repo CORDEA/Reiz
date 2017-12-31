@@ -9,12 +9,35 @@ import jp.cordea.reiz.databinding.FragmentAddSessionBinding
 
 class AddSessionFragment : Fragment() {
 
+    private lateinit var binding: FragmentAddSessionBinding
+
+    private val presenter by lazy {
+        AddSessionPresenter(activity, binding)
+    }
+
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View =
-            FragmentAddSessionBinding.inflate(inflater, container, false).root
+            FragmentAddSessionBinding.inflate(inflater, container, false).also {
+                binding = it
+            }.root
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        presenter.onCreate()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        presenter.onPause()
+    }
 
     companion object {
 
