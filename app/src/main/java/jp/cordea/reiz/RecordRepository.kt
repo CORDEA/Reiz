@@ -1,5 +1,6 @@
 package jp.cordea.reiz
 
+import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import jp.cordea.reiz.model.Record
@@ -13,6 +14,13 @@ object RecordRepository {
             Single
                     .fromCallable {
                         Optional.ofNullable(recordDao.getCurrentRecord())
+                    }
+                    .subscribeOn(Schedulers.io())
+
+    fun addRecord(record: Record): Completable =
+            Completable
+                    .fromCallable {
+                        recordDao.insertRecord(record)
                     }
                     .subscribeOn(Schedulers.io())
 }
