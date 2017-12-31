@@ -21,7 +21,6 @@ class MenuFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View =
             FragmentMenuBinding.inflate(inflater, container, false).also {
-                it.listView.adapter = MenuListAdapter(context)
                 binding = it
             }.root
 
