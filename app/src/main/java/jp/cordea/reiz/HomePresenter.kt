@@ -1,6 +1,7 @@
 package jp.cordea.reiz
 
 import android.app.Activity
+import android.support.v7.widget.LinearLayoutManager
 import jp.cordea.reiz.databinding.FragmentHomeBinding
 
 class HomePresenter(
@@ -12,6 +13,11 @@ class HomePresenter(
 
     override fun onCreate() {
         binding.vm = viewModel
+        binding.recyclerView.layoutManager = LinearLayoutManager(
+                activity,
+                LinearLayoutManager.HORIZONTAL,
+                false
+        )
     }
 
     override fun onResume() {
