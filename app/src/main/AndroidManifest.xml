@@ -22,6 +22,10 @@
         <activity
             android:name=".AddMenuActivity"
             android:label="@string/title_activity_add_menu"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AddSessionActivity"
+            android:label="@string/title_activity_add_session"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
