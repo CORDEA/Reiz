@@ -2,20 +2,20 @@ package jp.cordea.reiz
 
 import android.arch.persistence.room.TypeConverter
 import jp.cordea.reiz.model.Menu
-import java.util.*
+import org.joda.time.DateTime
 
 class Converters {
 
     @TypeConverter
-    fun fromTimestamp(value: Long): Date? =
+    fun fromTimestamp(value: Long): DateTime? =
             if (value > 0L) {
-                Date(value)
+                DateTime(value)
             } else {
                 null
             }
 
     @TypeConverter
-    fun toTimestamp(value: Date?): Long = value?.time ?: -1L
+    fun toTimestamp(value: DateTime?): Long = value?.millis ?: -1L
 
     @TypeConverter
     fun fromMenuIds(value: String): List<Menu> =

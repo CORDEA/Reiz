@@ -6,7 +6,6 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import jp.cordea.reiz.model.Record
-import java.util.*
 
 class AddSessionMenuViewModel(
         override val context: Context,
@@ -46,7 +45,7 @@ class AddSessionMenuViewModel(
                 }
                 .map { it.menu }
                 .toList()
-                .map { Record(it, Date()) }
+                .map { Record(it) }
                 .flatMapCompletable {
                     RecordRepository.addRecord(it)
                 }
@@ -54,6 +53,7 @@ class AddSessionMenuViewModel(
                 .subscribe({
                     onRequestFinish()
                 }, {
+                    it.printStackTrace()
                 })
     }
 
