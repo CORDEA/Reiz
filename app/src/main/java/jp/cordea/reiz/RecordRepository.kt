@@ -23,4 +23,11 @@ object RecordRepository {
                         recordDao.insertRecord(record)
                     }
                     .subscribeOn(Schedulers.io())
+
+    fun updateRecord(record: Record): Completable =
+            Completable
+                    .fromCallable {
+                        recordDao.updateRecord(record)
+                    }
+                    .subscribeOn(Schedulers.io())
 }
