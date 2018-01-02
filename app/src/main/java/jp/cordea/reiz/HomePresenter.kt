@@ -26,9 +26,6 @@ class HomePresenter(
         viewModel.update()
     }
 
-    override fun onUpdate() {
-    }
-
     override fun onPause() {
         viewModel.dispose()
     }

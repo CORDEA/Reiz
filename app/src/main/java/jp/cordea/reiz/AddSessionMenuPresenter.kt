@@ -25,7 +25,4 @@ class AddSessionMenuPresenter(
     override fun onPause() {
         viewModel.dispose()
     }
-
-    override fun onUpdate() {
-    }
 }

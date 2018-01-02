@@ -9,6 +9,4 @@ interface IPresenter<out T> {
     fun onResume()
 
     fun onPause()
-
-    fun onUpdate()
 }
