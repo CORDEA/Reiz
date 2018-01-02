@@ -10,6 +10,13 @@ object RecordRepository {
 
     private val recordDao = ReizApplication.Database.recordDao()
 
+    fun getPastRecords(): Single<List<Record>> =
+            Single
+                    .fromCallable {
+                        recordDao.getPastRecords()
+                    }
+                    .subscribeOn(Schedulers.io())
+
     fun getCurrentRecord(): Single<Optional<Record>> =
             Single
                     .fromCallable {
