@@ -30,6 +30,9 @@ class MenuViewModel(override val context: Context) : IViewModel {
                 })
     }
 
+    override fun update() {
+    }
+
     override fun dispose() {
     }
 }

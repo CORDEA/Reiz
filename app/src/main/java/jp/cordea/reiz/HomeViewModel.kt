@@ -124,6 +124,9 @@ class HomeViewModel(override val context: Context) : IViewModel, BaseObservable(
                 })
     }
 
+    override fun update() {
+    }
+
     override fun dispose() {
         disposable?.dispose()
         timerDisposable?.dispose()

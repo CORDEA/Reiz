@@ -57,6 +57,9 @@ class AddSessionMenuViewModel(
                 })
     }
 
+    override fun update() {
+    }
+
     override fun dispose() {
         menuDisposable?.dispose()
         recordDisposable?.dispose()

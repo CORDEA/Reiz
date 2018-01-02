@@ -6,5 +6,7 @@ interface IViewModel {
 
     val context: Context
 
+    fun update()
+
     fun dispose()
 }

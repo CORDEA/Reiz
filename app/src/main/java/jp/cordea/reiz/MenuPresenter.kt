@@ -20,4 +20,7 @@ class MenuPresenter(
     override fun onPause() {
         viewModel.dispose()
     }
+
+    override fun onUpdate() {
+    }
 }

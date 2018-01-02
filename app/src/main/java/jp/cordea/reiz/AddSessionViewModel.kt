@@ -15,6 +15,9 @@ class AddSessionViewModel(override val context: Context) : IViewModel {
         listener?.onClick()
     }
 
+    override fun update() {
+    }
+
     override fun dispose() {
     }
 }

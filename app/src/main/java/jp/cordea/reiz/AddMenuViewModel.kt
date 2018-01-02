@@ -44,6 +44,9 @@ class AddMenuViewModel(
 
     private var disposable: Disposable? = null
 
+    override fun update() {
+    }
+
     override fun dispose() {
         disposable?.dispose()
     }
