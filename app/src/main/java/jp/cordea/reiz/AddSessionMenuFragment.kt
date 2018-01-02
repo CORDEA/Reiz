@@ -12,7 +12,7 @@ class AddSessionMenuFragment : Fragment() {
     private lateinit var binding: FragmentAddSessionMenuBinding
 
     private val presenter by lazy {
-        AddSessionMenuPresenter(activity, binding)
+        AddSessionMenuPresenter(this, binding)
     }
 
     override fun onCreateView(

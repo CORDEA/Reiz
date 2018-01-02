@@ -12,7 +12,7 @@ class MenuFragment : Fragment() {
     private lateinit var binding: FragmentMenuBinding
 
     private val presenter by lazy {
-        MenuPresenter(activity, binding)
+        MenuPresenter(this, binding)
     }
 
     override fun onCreateView(

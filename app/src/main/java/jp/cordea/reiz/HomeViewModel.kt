@@ -1,6 +1,7 @@
 package jp.cordea.reiz
 
 import android.content.Context
+import android.content.Intent
 import android.databinding.BaseObservable
 import android.databinding.Bindable
 import android.view.View
@@ -14,7 +15,10 @@ import org.joda.time.Duration
 import org.joda.time.format.PeriodFormatterBuilder
 import java.util.concurrent.TimeUnit
 
-class HomeViewModel(override val context: Context) : IViewModel, BaseObservable() {
+class HomeViewModel(
+        override val context: Context,
+        private val onRequestStartActivity: (Intent) -> Unit
+) : IViewModel, BaseObservable() {
 
     val adapter = HomeListAdapter(context)
 
@@ -26,7 +30,7 @@ class HomeViewModel(override val context: Context) : IViewModel, BaseObservable(
         }
 
     val onClickAdd = View.OnClickListener {
-        context.startActivity(AddSessionActivity.createIntent(context))
+        onRequestStartActivity(AddSessionActivity.createIntent(context))
     }
 
     val onClickPlay = View.OnClickListener {
@@ -72,14 +76,18 @@ class HomeViewModel(override val context: Context) : IViewModel, BaseObservable(
 
     private var record: Record? = null
 
-    private var disposable: Disposable? = null
+    private var disposable = SerialDisposable()
 
     private var timerDisposable: Disposable? = null
 
     private var updateDisposable = SerialDisposable()
 
     init {
-        disposable = RecordRepository.getCurrentRecord()
+        init()
+    }
+
+    private fun init() {
+        disposable.set(RecordRepository.getCurrentRecord()
                 .doOnSuccess {
                     isInProgress = it.isPresent
                 }
@@ -97,8 +105,7 @@ class HomeViewModel(override val context: Context) : IViewModel, BaseObservable(
                     adapter.refreshItems(it)
                 }, {
                     it.printStackTrace()
-                })
-
+                }))
     }
 
     private fun startTimer(date: DateTime) {
@@ -125,10 +132,11 @@ class HomeViewModel(override val context: Context) : IViewModel, BaseObservable(
     }
 
     override fun update() {
+        init()
     }
 
     override fun dispose() {
-        disposable?.dispose()
+        disposable.dispose()
         timerDisposable?.dispose()
         updateDisposable.dispose()
     }

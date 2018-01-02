@@ -6,7 +6,7 @@ import jp.cordea.reiz.databinding.ActivityAddSessionBinding
 class AddSessionPresenter(
         override val activity: Activity,
         override val binding: ActivityAddSessionBinding
-) : IPresenter<ActivityAddSessionBinding> {
+) : IActivityPresenter<ActivityAddSessionBinding> {
 
     var listener: AddSessionViewModel.OnAddClickListener? = null
         set(value) {

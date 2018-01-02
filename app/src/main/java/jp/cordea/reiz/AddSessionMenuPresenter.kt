@@ -1,20 +1,24 @@
 package jp.cordea.reiz
 
 import android.app.Activity
+import android.support.v4.app.Fragment
 import jp.cordea.reiz.databinding.FragmentAddSessionMenuBinding
 
 class AddSessionMenuPresenter(
-        override val activity: Activity,
+        override val fragment: Fragment,
         override val binding: FragmentAddSessionMenuBinding
-) : IPresenter<FragmentAddSessionMenuBinding> {
+) : IFragmentPresenter<FragmentAddSessionMenuBinding> {
 
-    private val viewModel = AddSessionMenuViewModel(activity) {
-        activity.finish()
+    private val viewModel = AddSessionMenuViewModel(fragment.context) {
+        fragment.activity.run {
+            setResult(Activity.RESULT_OK)
+            finish()
+        }
     }
 
     override fun onCreate() {
         binding.vm = viewModel
-        (activity as AddSessionActivity).listener = viewModel
+        (fragment.activity as AddSessionActivity).listener = viewModel
     }
 
     override fun onResume() {

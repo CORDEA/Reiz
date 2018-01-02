@@ -1,10 +1,13 @@
 package jp.cordea.reiz
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import jp.cordea.reiz.HomePresenter.Companion.RequestCode
 import jp.cordea.reiz.databinding.FragmentHomeBinding
 
 
@@ -13,7 +16,7 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
 
     private val presenter by lazy {
-        HomePresenter(activity, binding)
+        HomePresenter(this, binding)
     }
 
     override fun onCreateView(
