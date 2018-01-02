@@ -8,7 +8,6 @@ import android.view.View
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import io.reactivex.disposables.SerialDisposable
 import jp.cordea.reiz.model.Record
 import org.joda.time.DateTime
 import org.joda.time.Duration
@@ -35,10 +34,11 @@ class HomeViewModel(
 
     val onClickPlay = View.OnClickListener {
         record?.let {
+            updateDisposable?.dispose()
             if (isPlaying) {
                 it.endedAt = DateTime()
                 timerDisposable?.dispose()
-                updateDisposable.set(RecordRepository.updateRecord(it)
+                updateDisposable = RecordRepository.updateRecord(it)
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe({
                             isPlaying = false
@@ -46,17 +46,17 @@ class HomeViewModel(
                             timeText = ""
                             adapter.refreshItems(emptyList())
                         }, {
-                        }))
+                        })
                 return@OnClickListener
             }
             it.startedAt = DateTime().also {
                 startTimer(it)
             }
-            updateDisposable.set(RecordRepository.updateRecord(it)
+            updateDisposable = RecordRepository.updateRecord(it)
                     .subscribe({
                         isPlaying = true
                     }, {
-                    }))
+                    })
         }
     }
 
@@ -76,18 +76,15 @@ class HomeViewModel(
 
     private var record: Record? = null
 
-    private var disposable = SerialDisposable()
+    private var disposable: Disposable? = null
 
     private var timerDisposable: Disposable? = null
 
-    private var updateDisposable = SerialDisposable()
-
-    init {
-        init()
-    }
+    private var updateDisposable: Disposable? = null
 
     private fun init() {
-        disposable.set(RecordRepository.getCurrentRecord()
+        disposable?.dispose()
+        disposable = RecordRepository.getCurrentRecord()
                 .doOnSuccess {
                     isInProgress = it.isPresent
                 }
@@ -105,7 +102,7 @@ class HomeViewModel(
                     adapter.refreshItems(it)
                 }, {
                     it.printStackTrace()
-                }))
+                })
     }
 
     private fun startTimer(date: DateTime) {
@@ -118,6 +115,7 @@ class HomeViewModel(
                 .printZeroAlways()
                 .minimumPrintedDigits(2)
                 .toFormatter()
+        timerDisposable?.dispose()
         timerDisposable = Observable
                 .interval(1, TimeUnit.SECONDS)
                 .map { Duration(date, DateTime()) }
@@ -136,8 +134,8 @@ class HomeViewModel(
     }
 
     override fun dispose() {
-        disposable.dispose()
+        disposable?.dispose()
         timerDisposable?.dispose()
-        updateDisposable.dispose()
+        updateDisposable?.dispose()
     }
 }

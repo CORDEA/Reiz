@@ -1,6 +1,5 @@
 package jp.cordea.reiz
 
-import android.app.Activity
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import jp.cordea.reiz.databinding.FragmentHomeBinding
@@ -11,7 +10,7 @@ class HomePresenter(
 ) : IFragmentPresenter<FragmentHomeBinding> {
 
     private val viewModel = HomeViewModel(fragment.context) {
-        fragment.startActivityForResult(it, RequestCode)
+        fragment.startActivity(it)
     }
 
     override fun onCreate() {
@@ -24,18 +23,13 @@ class HomePresenter(
     }
 
     override fun onResume() {
+        viewModel.update()
+    }
+
+    override fun onUpdate() {
     }
 
     override fun onPause() {
         viewModel.dispose()
-    }
-
-    override fun onUpdate() {
-        viewModel.update()
-    }
-
-    companion object {
-
-        const val RequestCode = 100
     }
 }

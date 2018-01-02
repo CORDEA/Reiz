@@ -1,6 +1,5 @@
 package jp.cordea.reiz
 
-import android.app.Activity
 import android.support.v4.app.Fragment
 import jp.cordea.reiz.databinding.FragmentAddSessionMenuBinding
 
@@ -11,7 +10,6 @@ class AddSessionMenuPresenter(
 
     private val viewModel = AddSessionMenuViewModel(fragment.context) {
         fragment.activity.run {
-            setResult(Activity.RESULT_OK)
             finish()
         }
     }
