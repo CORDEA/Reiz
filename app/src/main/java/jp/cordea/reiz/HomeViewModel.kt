@@ -35,8 +35,12 @@ class HomeViewModel(override val context: Context) : IViewModel, BaseObservable(
                 it.endedAt = DateTime()
                 timerDisposable?.dispose()
                 updateDisposable.set(RecordRepository.updateRecord(it)
+                        .observeOn(AndroidSchedulers.mainThread())
                         .subscribe({
                             isPlaying = false
+                            isInProgress = false
+                            timeText = ""
+                            adapter.refreshItems(emptyList())
                         }, {
                         }))
                 return@OnClickListener
@@ -123,5 +127,6 @@ class HomeViewModel(override val context: Context) : IViewModel, BaseObservable(
     override fun dispose() {
         disposable?.dispose()
         timerDisposable?.dispose()
+        updateDisposable.dispose()
     }
 }
