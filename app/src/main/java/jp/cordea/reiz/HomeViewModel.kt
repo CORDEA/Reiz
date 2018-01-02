@@ -42,6 +42,7 @@ class HomeViewModel(
                             isPlaying = false
                             isInProgress = false
                             timeText = ""
+                            adapter.isEnableItems = false
                             adapter.refreshItems(emptyList())
                         }, {
                         })
@@ -53,6 +54,7 @@ class HomeViewModel(
             updateDisposable = RecordRepository.updateRecord(it)
                     .subscribe({
                         isPlaying = true
+                        adapter.isEnableItems = true
                     }, {
                     })
         }
@@ -93,7 +95,11 @@ class HomeViewModel(
                     record = it
                 }
                 .flatMap { Observable.fromIterable(it.menus) }
-                .map { HomeListItemViewModel(it) }
+                .map {
+                    HomeListItemViewModel(it) {
+                        adapter.removeItem(it)
+                    }
+                }
                 .toList()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
