@@ -20,6 +20,7 @@ class HomePresenter(
                 LinearLayoutManager.HORIZONTAL,
                 false
         )
+        binding.recyclerView.addItemDecoration(ItemDecoration(fragment.context))
     }
 
     override fun onResume() {
