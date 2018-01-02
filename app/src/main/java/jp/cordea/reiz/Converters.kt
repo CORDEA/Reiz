@@ -20,16 +20,20 @@ class Converters {
     @TypeConverter
     fun fromMenuIds(value: String): List<Menu> =
             ReizApplication.Database.menuDao().let { dao ->
-                value.split(',')
-                        .map { it.toLong() }
-                        .toLongArray()
-                        .let {
-                            val ids = dao.getMenuByIds(it)
-                                    .associate { it.id to it }
-                            it.map {
-                                ids.getValue(it)
-                            }.toList()
-                        }
+                if (value.isBlank()) {
+                    emptyList()
+                } else {
+                    value.split(',')
+                            .map { it.toLong() }
+                            .toLongArray()
+                            .let {
+                                val ids = dao.getMenuByIds(it)
+                                        .associate { it.id to it }
+                                it.map {
+                                    ids.getValue(it)
+                                }.toList()
+                            }
+                }
             }
 
     @TypeConverter

@@ -6,7 +6,7 @@ import android.view.View
 import jp.cordea.reiz.model.Menu
 
 class HomeListItemViewModel(
-        menu: Menu,
+        val menu: Menu,
         onRequestItemDeletion: (HomeListItemViewModel) -> Unit
 ) : BaseObservable() {
 

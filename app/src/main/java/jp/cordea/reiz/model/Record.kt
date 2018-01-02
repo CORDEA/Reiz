@@ -16,4 +16,7 @@ data class Record(
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
+
+    @ColumnInfo(name = "selected_menus")
+    var selectedMenus: List<Menu> = emptyList()
 }

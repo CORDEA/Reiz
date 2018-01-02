@@ -82,6 +82,8 @@ class HomeViewModel(
 
     private var updateDisposable: Disposable? = null
 
+    private var itemDisposable: Disposable? = null
+
     private fun init() {
         disposable?.dispose()
         disposable = RecordRepository.getCurrentRecord()
@@ -94,10 +96,20 @@ class HomeViewModel(
                 .doOnNext {
                     record = it
                 }
-                .flatMap { Observable.fromIterable(it.menus) }
+                .map {
+                    var menus = it.menus
+                    it.selectedMenus.forEach {
+                        menus = menus.minus(it)
+                    }
+                    menus
+                }
+                .flatMap {
+                    Observable
+                            .fromIterable(it)
+                }
                 .map {
                     HomeListItemViewModel(it) {
-                        adapter.removeItem(it)
+                        selectItem(it)
                     }
                 }
                 .toList()
@@ -106,6 +118,22 @@ class HomeViewModel(
                     adapter.refreshItems(it)
                 }, {
                     it.printStackTrace()
+                })
+    }
+
+    private fun selectItem(model: HomeListItemViewModel) {
+        val record = record ?: return
+        val menus = record.selectedMenus.toMutableList().apply {
+            add(model.menu)
+        }
+        record.selectedMenus = menus
+
+        itemDisposable?.dispose()
+        itemDisposable = RecordRepository.updateRecord(record)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    adapter.removeItem(model)
+                }, {
                 })
     }
 
@@ -141,5 +169,6 @@ class HomeViewModel(
         disposable?.dispose()
         timerDisposable?.dispose()
         updateDisposable?.dispose()
+        itemDisposable?.dispose()
     }
 }
