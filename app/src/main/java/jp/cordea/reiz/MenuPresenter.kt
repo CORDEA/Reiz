@@ -15,6 +15,7 @@ class MenuPresenter(
     }
 
     override fun onResume() {
+        viewModel.update()
     }
 
     override fun onPause() {

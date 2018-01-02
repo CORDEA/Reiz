@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.View
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 
 class MenuViewModel(override val context: Context) : IViewModel {
 
@@ -13,8 +14,11 @@ class MenuViewModel(override val context: Context) : IViewModel {
         context.startActivity(AddMenuActivity.createIntent(context))
     }
 
-    init {
-        MenuRepository.getMenus()
+    private var disposable: Disposable? = null
+
+    override fun update() {
+        disposable?.dispose()
+        disposable = MenuRepository.getMenus()
                 .observeOn(AndroidSchedulers.mainThread())
                 .toObservable()
                 .flatMap {
@@ -30,9 +34,7 @@ class MenuViewModel(override val context: Context) : IViewModel {
                 })
     }
 
-    override fun update() {
-    }
-
     override fun dispose() {
+        disposable?.dispose()
     }
 }
