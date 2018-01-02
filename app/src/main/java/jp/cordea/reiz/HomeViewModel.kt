@@ -1,7 +1,6 @@
 package jp.cordea.reiz
 
 import android.content.Context
-import android.content.Intent
 import android.databinding.BaseObservable
 import android.databinding.Bindable
 import android.view.View
@@ -15,8 +14,7 @@ import org.joda.time.format.PeriodFormatterBuilder
 import java.util.concurrent.TimeUnit
 
 class HomeViewModel(
-        override val context: Context,
-        private val onRequestStartActivity: (Intent) -> Unit
+        override val context: Context
 ) : IViewModel, BaseObservable() {
 
     val adapter = HomeListAdapter(context)
@@ -29,7 +27,7 @@ class HomeViewModel(
         }
 
     val onClickAdd = View.OnClickListener {
-        onRequestStartActivity(AddSessionActivity.createIntent(context))
+        context.startActivity(AddSessionActivity.createIntent(context))
     }
 
     val onClickPlay = View.OnClickListener {

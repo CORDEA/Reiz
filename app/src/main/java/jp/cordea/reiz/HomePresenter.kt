@@ -9,9 +9,7 @@ class HomePresenter(
         override val binding: FragmentHomeBinding
 ) : IFragmentPresenter<FragmentHomeBinding> {
 
-    private val viewModel = HomeViewModel(fragment.context) {
-        fragment.startActivity(it)
-    }
+    private val viewModel = HomeViewModel(fragment.context)
 
     override fun onCreate() {
         binding.vm = viewModel
