@@ -11,7 +11,7 @@ import android.widget.BaseAdapter
 open class BindingListAdapter<T>(
         private val context: Context,
         private val layout: Int,
-        private var initItems: List<T> = emptyList()
+        initItems: List<T> = emptyList()
 ) : BaseAdapter() {
 
     var items: List<T> = initItems
