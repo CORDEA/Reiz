@@ -26,6 +26,16 @@ class HomeViewModel(
             notifyPropertyChanged(BR.timeText)
         }
 
+    @get:Bindable
+    val priceText: String
+        get() = price?.toString() ?: ""
+
+    private var price: Int? = null
+        private set(value) {
+            field = value
+            notifyPropertyChanged(BR.priceText)
+        }
+
     val onClickAdd = View.OnClickListener {
         context.startActivity(AddSessionActivity.createIntent(context))
     }
@@ -42,6 +52,7 @@ class HomeViewModel(
                             isPlaying = false
                             isInProgress = false
                             timeText = ""
+                            price = null
                             adapter.isEnableItems = false
                             adapter.refreshItems(emptyList())
                         }, {
@@ -104,8 +115,7 @@ class HomeViewModel(
                     menus
                 }
                 .flatMap {
-                    Observable
-                            .fromIterable(it)
+                    Observable.fromIterable(it)
                 }
                 .map {
                     HomeListItemViewModel(it) {
@@ -133,6 +143,7 @@ class HomeViewModel(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     adapter.removeItem(model)
+                    price = (price ?: 0).plus(model.menu.price)
                 }, {
                 })
     }
