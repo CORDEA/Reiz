@@ -41,34 +41,7 @@ class HomeViewModel(
     }
 
     val onClickPlay = View.OnClickListener {
-        record?.let {
-            updateDisposable?.dispose()
-            if (isPlaying) {
-                it.endedAt = DateTime()
-                timerDisposable?.dispose()
-                updateDisposable = RecordRepository.updateRecord(it)
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe({
-                            isPlaying = false
-                            isInProgress = false
-                            timeText = ""
-                            price = null
-                            adapter.isEnableItems = false
-                            adapter.refreshItems(emptyList())
-                        }, {
-                        })
-                return@OnClickListener
-            }
-            it.startedAt = DateTime().also {
-                startTimer(it)
-            }
-            updateDisposable = RecordRepository.updateRecord(it)
-                    .subscribe({
-                        isPlaying = true
-                        adapter.isEnableItems = true
-                    }, {
-                    })
-        }
+        switchPlayingState()
     }
 
     @get:Bindable
@@ -107,6 +80,12 @@ class HomeViewModel(
                 .doOnNext {
                     record = it
                 }
+                .doOnNext {
+                    isPlaying = it.startedAt != null
+                    if (isPlaying) {
+                        startTimer(it.startedAt!!)
+                    }
+                }
                 .map {
                     var menus = it.menus
                     it.selectedMenus.forEach {
@@ -126,9 +105,43 @@ class HomeViewModel(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     adapter.refreshItems(it)
+                    if (isPlaying) {
+                        adapter.isEnableItems = true
+                    }
                 }, {
                     it.printStackTrace()
                 })
+    }
+
+    private fun switchPlayingState() {
+        record?.let {
+            updateDisposable?.dispose()
+            if (isPlaying) {
+                it.endedAt = DateTime()
+                timerDisposable?.dispose()
+                updateDisposable = RecordRepository.updateRecord(it)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe({
+                            isPlaying = false
+                            isInProgress = false
+                            timeText = ""
+                            price = null
+                            adapter.isEnableItems = false
+                            adapter.refreshItems(emptyList())
+                        }, {
+                        })
+                return
+            }
+            it.startedAt = DateTime().also {
+                startTimer(it)
+            }
+            updateDisposable = RecordRepository.updateRecord(it)
+                    .subscribe({
+                        isPlaying = true
+                        adapter.isEnableItems = true
+                    }, {
+                    })
+        }
     }
 
     private fun selectItem(model: HomeListItemViewModel) {
