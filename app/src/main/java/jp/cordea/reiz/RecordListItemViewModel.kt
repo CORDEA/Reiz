@@ -9,7 +9,11 @@ class RecordListItemViewModel(
 
     val title = "${Format.print(record.startedAt)} ~ ${Format.print(record.endedAt)}"
 
-    val priceText = "¥ ${record.menus.sumBy { it.price }}"
+    private val price = record.selectedMenus.sumBy { it.price }
+
+    private val totalPrice = record.menus.sumBy { it.price }
+
+    val priceText = "¥ $price / $totalPrice"
 
     companion object {
 
