@@ -1,15 +1,18 @@
 package jp.cordea.reiz
 
 import jp.cordea.reiz.model.Record
-import org.joda.time.format.DateTimeFormat
+import org.joda.time.Duration
+import org.joda.time.format.PeriodFormatterBuilder
 
 class RecordListItemViewModel(
         record: Record
 ) {
 
-    val title = "${Format.print(record.startedAt)} ~ ${Format.print(record.endedAt)}"
+    private val duration = Duration(record.startedAt, record.endedAt)
 
-    private val price = record.selectedMenus.sumBy { it.price }
+    val title: String = Format.print(duration.toPeriod())
+
+    val price = record.selectedMenus.sumBy { it.price }
 
     private val totalPrice = record.menus.sumBy { it.price }
 
@@ -17,6 +20,13 @@ class RecordListItemViewModel(
 
     companion object {
 
-        private val Format = DateTimeFormat.forPattern("HH:mm:ss")
+        private val Format = PeriodFormatterBuilder()
+                .printZeroAlways()
+                .appendHours()
+                .appendSuffix("h")
+                .appendSeparator(" ")
+                .appendMinutes()
+                .appendSuffix("m")
+                .toFormatter()
     }
 }
