@@ -163,13 +163,15 @@ class HomeViewModel(
 
     private fun startTimer(date: DateTime) {
         val formatter = PeriodFormatterBuilder()
+                .printZeroAlways()
+                .appendHours()
+                .appendSuffix("h")
+                .appendSeparator(" ")
                 .appendMinutes()
                 .appendSuffix("m")
                 .appendSeparator(" ")
                 .appendSeconds()
                 .appendSuffix("s")
-                .printZeroAlways()
-                .minimumPrintedDigits(2)
                 .toFormatter()
         timerDisposable?.dispose()
         timerDisposable = Observable
