@@ -4,10 +4,9 @@
     <string name="title_menu">Menu</string>
     <string name="title_record">Record</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_add_menu">AddMenuActivity</string>
-    <string name="title_activity_add_session">AddSessionActivity</string>
+    <string name="title_activity_add_menu">Add menu</string>
+    <string name="title_activity_add_session">Add session</string>
+
     <string name="action_settings">Settings</string>
 
     <string name="list_item_home_button_text">Drank!</string>
