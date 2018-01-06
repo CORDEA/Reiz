@@ -162,23 +162,13 @@ class HomeViewModel(
     }
 
     private fun startTimer(date: DateTime) {
-        val formatter = PeriodFormatterBuilder()
-                .printZeroAlways()
-                .appendHours()
-                .appendSuffix("h")
-                .appendSeparator(" ")
-                .appendMinutes()
-                .appendSuffix("m")
-                .appendSeparator(" ")
-                .appendSeconds()
-                .appendSuffix("s")
-                .toFormatter()
+
         timerDisposable?.dispose()
         timerDisposable = Observable
                 .interval(1, TimeUnit.SECONDS)
                 .map { Duration(date, DateTime()) }
                 .map {
-                    formatter.print(it.toPeriod())
+                    Format.print(it.toPeriod())
                 }
                 .subscribe({
                     timeText = it
@@ -196,5 +186,20 @@ class HomeViewModel(
         timerDisposable?.dispose()
         updateDisposable?.dispose()
         itemDisposable?.dispose()
+    }
+
+    companion object {
+
+        private val Format = PeriodFormatterBuilder()
+                .printZeroAlways()
+                .appendHours()
+                .appendSuffix("h")
+                .appendSeparator(" ")
+                .appendMinutes()
+                .appendSuffix("m")
+                .appendSeparator(" ")
+                .appendSeconds()
+                .appendSuffix("s")
+                .toFormatter()
     }
 }
